@@ -1,22 +1,6 @@
 <template>
 	<div class="waxel">
 		<ClientOnly>
-			<div>
-				<div v-if="chainStore.session">
-					<span>{{ chainStore.session.actor }} connected</span>
-					<button @click="chainStore.transact">Transact test</button>
-				</div>
-				<button v-else @click="chainStore.login">Login</button>
-			</div>
-			<hr>
-			<div>
-				<button @click="chainStore.logout">Logout</button>
-			</div>
-
-			<hr>
-			<hr>
-			<hr>
-
 			<div class="waxel-actors">
 				<div class="waxel-actors-list">
 					<div v-for="actor in waxelStore.actors" class="waxel-actors-list-item">
@@ -43,10 +27,8 @@
 	</div>
 </template>
 <script setup>
-import { useChainStore } from '@/stores/chain';
 import { useWaxelStore } from '@/stores/waxel'
 
-const chainStore = useChainStore()
 const waxelStore = useWaxelStore()
 
 onMounted(() => {
