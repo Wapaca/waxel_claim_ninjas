@@ -12,7 +12,7 @@ export const useWaxelStore = defineStore('waxel', {
   actions: {
     async init() {
       this.initActors()
-      this.initNinjas()
+      await this.initNinjas()
     },
     initActors() {
       this.actors = []
@@ -48,14 +48,6 @@ export const useWaxelStore = defineStore('waxel', {
         return n;
       })
 
-      /*** Different ninjas status 
-        0: "Searching"
-        1: "Search successful"
-        2: "holdup1"
-        3: "Search failed"
-        4: "Idle"
-        5: "holdup"
-      **/
 
       this.updateNinjasList()
     },
@@ -70,5 +62,34 @@ export const useWaxelStore = defineStore('waxel', {
     }
   },
   getters: {
+    getNinjaStep: () => (ninja) => {
+      //return 'searching' or 'standing'
+      /*** Different ninjas status 
+        0: "Searching"
+        1: "Search successful"
+        2: "holdup1"
+        3: "Search failed"
+        4: "Idle"
+        5: "holdup"
+      **/
+
+      if(['Search successful', 'Search failed', 'Idle'].includes(ninja.status))
+        return 'standing';
+
+      return 'searching'
+    },
+    getNinjaClaimTimeleft: () => (ninja) => {
+      const thisStore = useWaxelStore()
+      if(thisStore.getNinjaStep(ninja) !== 'searching')
+        return 0;
+
+      return Math.max(0, (ninja.last_search.getTime() + (ninja.delay_seconds * 1000)) - Date.now() ) / 1000
+    },
+    getNinjasAmount: (state) => (actor) => {
+      if(state.ninjasList[actor] === undefined)
+        return 0
+
+      return state.ninjasList[actor].length
+    }
   }
 })

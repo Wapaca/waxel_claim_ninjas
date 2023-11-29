@@ -36,7 +36,7 @@ body {
 	}
 
 	.waxelclaim-content {
-		padding: 60px $margin-small 0;
+		padding: calc($margin-small + 60px) $margin-small $margin-small;
 	}
 
 }

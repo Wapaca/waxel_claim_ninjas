@@ -1,3 +1,43 @@
-.waxelpage {
-	
+.waxelpage .waxel {
+
+	.waxel-actors .waxel-actors-list {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		grid-gap: $margin-small;
+
+		.waxel-actors-list-item {
+			background: $background_color_darker;
+			padding: 0 $margin-small;
+
+			.item-label {
+				font-size: 1.05em;
+				text-align: center;
+				padding: $margin-small 0;
+			}
+
+			.item-ninjas-list {
+				.ninjas-list-item {
+					display: grid;
+					grid-template-columns: auto 1fr;
+					grid-gap: $margin-xsmall;
+
+					.item-label,
+					.item-content {
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+					}
+
+					.item-label {
+						justify-content: flex-start;
+					}
+					.item-content {
+						justify-content: flex-end;
+					}
+				}
+			}
+
+		}
+	}
+
 }

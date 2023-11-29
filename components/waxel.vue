@@ -4,16 +4,17 @@
 			<div class="waxel-actors">
 				<div class="waxel-actors-list">
 					<div v-for="actor in waxelStore.actors" class="waxel-actors-list-item">
-						<div class="item-label">{{ actor }}</div>
+						<div class="item-label">{{ actor }} ({{ waxelStore.getNinjasAmount(actor) }} ninja{{ ((waxelStore.getNinjasAmount(actor) > 1) ? 's' : '') }})</div>
 						<div v-if="waxelStore.ninjasList[actor] !== undefined" class="item-ninjas-list">
 							<div v-for="ninja in waxelStore.ninjasList[actor]" class="ninjas-list-item">
-								<div>{{ ninja.asset_id }}</div>
-								<div>{{ ninja.delay_seconds }}</div>
-								<div>{{ ninja.last_search }}</div>
-								<div>{{ ninja.owner }}</div>
-								<div>{{ ninja.race }}</div>
-								<div>{{ ninja.status }}</div>
-								<hr>
+								<div class="item-label">{{ ninja.race }} (<a :href="'https://wax.atomichub.io/explorer/asset/wax-mainnet/Waxel-Ninja-0000_'+ninja.asset_id" target="_blank">{{ ninja.asset_id }}</a>)</div>
+								<div class="item-content">
+									<div v-if="waxelStore.getNinjaStep(ninja)">
+										<div v-if="waxelStore.getNinjaClaimTimeleft(ninja) > 0">{{ formatDurationSeconds(precise(waxelStore.getNinjaClaimTimeleft(ninja) - timer, 0) ) }} seconds</div>
+										<div v-else>CLAIM</div>
+									</div>
+									<div v-else>SEARCH</div>
+								</div>
 							</div>
 						</div>
 						<div v-else>
@@ -27,11 +28,15 @@
 	</div>
 </template>
 <script setup>
+import { ref } from 'vue'
 import { useWaxelStore } from '@/stores/waxel'
-
+import { precise, formatDurationSeconds } from '~/composables/utils.js';
 const waxelStore = useWaxelStore()
 
-onMounted(() => {
-  waxelStore.init()
+const timer = ref(0)
+
+onMounted(async () => {
+  await waxelStore.init()
+  setInterval(() => ++timer.value, 1000)
 })
 </script>

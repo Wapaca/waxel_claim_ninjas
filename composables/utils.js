@@ -19,3 +19,45 @@ export const parseDateFromSmartcontract = (string) => {
 
   return d
 }
+
+export const precise = (num, precision) => {
+  let additionalExposant = 0
+  let numStr = num.toString();
+  if (numStr.includes('e')) {
+    const parts = numStr.split('e');
+    additionalExposant = Number(parts[1])
+    num = Number(parts[0])
+  }
+
+  const rounded = Number(Math.floor(num + "e" + precision) + "e-" + (precision-additionalExposant) )
+  return rounded.toFixed(precision);
+}
+
+const formatDoubleDigit = (number) => {
+  if(number < 10)
+    return '0'+number
+
+  return number
+}
+export const formatDurationSeconds = (seconds) => {
+  let days = Math.floor(seconds / (24 * 60 * 60));
+  seconds -= days * 24 * 60 * 60;
+  let hours = Math.floor(seconds / (60 * 60));
+  seconds -= hours * 60 * 60;
+  let minutes = Math.floor(seconds / 60);
+  seconds -= minutes * 60;
+
+  let formatted = ''
+  if (days > 0) {
+    formatted += `${days} day${days > 1 ? 's' : ''} `;
+  }
+  if (hours > 0) {
+    formatted += `${formatDoubleDigit(hours)}:`;
+  }
+  if (minutes > 0) {
+    formatted += `${formatDoubleDigit(minutes)}:`;
+  }
+  formatted += `${formatDoubleDigit(seconds)}`;
+
+  return formatted;
+}
