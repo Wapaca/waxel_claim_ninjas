@@ -17,6 +17,10 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
+    "@wharfkit/session": "^1.1.1",
+    "@wharfkit/wallet-plugin-anchor": "^1.1.0",
+    "@wharfkit/wallet-plugin-cloudwallet": "^1.1.0",
+    "@wharfkit/web-renderer": "^1.1.1",
     "pinia": "^2.1.7"
   }
 }
