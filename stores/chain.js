@@ -5,6 +5,8 @@ import { WalletPluginAnchor } from '@wharfkit/wallet-plugin-anchor';
 import { WalletPluginCloudWallet } from '@wharfkit/wallet-plugin-cloudwallet';
 import WebRenderer from '@wharfkit/web-renderer';
 
+import { useWaxelStore } from '~/stores/waxel.js';
+
 export const useChainStore = defineStore('chain', {
   state: () => ({
   	session: null,
@@ -35,6 +37,12 @@ export const useChainStore = defineStore('chain', {
 		async login() {
 			const response = await this.sessionKit.login();
 			this.session = response.session;
+
+			this.afterLoginHook();
+		},
+		afterLoginHook() {
+			const waxelStore = useWaxelStore()
+      waxelStore.addConnectedActor()
 		},
 		async logout() {
 			await this.sessionKit.logout(this.session);

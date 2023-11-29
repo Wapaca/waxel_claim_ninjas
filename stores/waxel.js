@@ -21,8 +21,6 @@ export const useWaxelStore = defineStore('waxel', {
         if(jsonActors)
           this.actors = JSON.parse(jsonActors)
       }
-
-      this.addConnectedActor()
     },
     addConnectedActor() {
       const chainStore = useChainStore()
@@ -33,6 +31,13 @@ export const useWaxelStore = defineStore('waxel', {
         if(!this.actors.includes(connected))
           this.actors.push(connected)
       }
+
+      this.saveActors()
+    },
+    removeActor(actor) {
+      const index = this.actors.indexOf(actor)
+
+      this.actors.splice(index, 1)
 
       this.saveActors()
     },
