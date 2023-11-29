@@ -1,0 +1,42 @@
+body {
+	background: $background_color;
+	color: $txt_color;
+	margin: 0;
+	padding: 0;
+
+	.waxelclaim-header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+
+		height: 60px;
+		background: $background_color_darker;
+		padding: 0 $margin-small;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-content: center;
+
+		.header-logo,
+		.header-account > div {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.header-account {
+			padding: 0 $margin-small;
+
+			display: grid;
+			grid-template-columns: 1fr auto;
+			grid-gap: $margin-xsmall;
+		}
+	}
+
+	.waxelclaim-content {
+		padding: 60px $margin-small 0;
+	}
+
+}

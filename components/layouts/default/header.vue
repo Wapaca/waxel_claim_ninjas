@@ -2,15 +2,14 @@
 	<div class="waxelclaim-header">
 		<div class="header-logo">WAXEL CLAIM TOOL</div>
 		<div class="header-account">
-			<div>
+			<div class="account-name">
 				<div v-if="chainStore.session">
-					<span>{{ chainStore.session.actor }} connected</span>
-					<button @click="chainStore.transact">Transact test</button>
+					<span>{{ chainStore.session.actor }}</span>
 				</div>
 				<button v-else @click="chainStore.login">Login</button>
 			</div>
-			<div>
-				<button @click="chainStore.logout">Logout</button>
+			<div class="account-logout">
+				<button v-if="chainStore.session" @click="chainStore.logout">Logout</button>
 			</div>
 		</div>
 	</div>

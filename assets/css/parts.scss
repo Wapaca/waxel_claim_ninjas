@@ -1,0 +1,15 @@
+button {
+	background: $background_secondary_color;
+	padding: $margin_small;
+	border: none;
+  border-radius: 0;
+  text-align: center;
+  font-size: 1.05em;
+  color: $txt_color;
+  transition: 0.2s ease 0s;
+  cursor: pointer;
+}
+
+button:hover {
+	background: $background_secondary_color_darker;
+}
