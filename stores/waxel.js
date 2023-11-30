@@ -90,6 +90,34 @@ export const useWaxelStore = defineStore('waxel', {
 
       return Math.max(0, (ninja.last_search.getTime() + (ninja.delay_seconds * 1000)) - Date.now() ) / 1000
     },
+    getSearchableAssetIds: (state) => (actor) => {
+      if(state.ninjasList[actor] === undefined)
+        return []
+
+      const thisStore = useWaxelStore()
+
+      const asset_ids = []
+
+      for(const ninja of state.ninjasList[actor])
+        if(thisStore.getNinjaStep(ninja) === 'standing')
+          asset_ids.push(ninja.asset_id)
+      
+      return asset_ids;
+    },
+    getClaimableAssetIds: (state) => (actor) => {
+      if(state.ninjasList[actor] === undefined)
+        return []
+
+      const thisStore = useWaxelStore()
+
+      const asset_ids = []
+
+      for(const ninja of state.ninjasList[actor])
+        if(thisStore.getNinjaStep(ninja) === 'searching' && thisStore.getNinjaClaimTimeleft(ninja) === 0)
+          asset_ids.push(ninja.asset_id)
+      
+      return asset_ids;
+    },
     getNinjasAmount: (state) => (actor) => {
       if(state.ninjasList[actor] === undefined)
         return 0

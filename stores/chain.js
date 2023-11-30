@@ -48,26 +48,33 @@ export const useChainStore = defineStore('chain', {
 			await this.sessionKit.logout(this.session);
 			this.session = null;
 		},
-		async transact() {
+		async transact({
+			actions,
+			updateAction,
+			quickUpdateAction,
+			updateFailedAction,
+			updateDelay,
+			updateFailedDelay,
+		}) {
 			if (!this.session) {
 				throw new Error('cannot transact without a session');
 			}
-			const action = {
-				account: 'eosio.token',
-				name: 'transfer',
-				authorization: [this.session.permissionLevel],
-				data: {
-					from: this.session.actor,
-					to: 'teamgreymass',
-					quantity: '0.00000001 WAX',
-					memo: 'Yay WharfKit! Thank you <3'
-				}
-			};
+
 			try {
-				const trx_result = await this.session.transact({ action })
+				const trx_result = await this.session.transact({ actions })
+
+				if(quickUpdateAction !== undefined)
+					quickUpdateAction()
+
+				if(updateAction !== undefined)
+					setTimeout(() => updateAction(), updateDelay)
+
 				console.log(trx_result, 'trx_result')
 			}
 			catch(e) {
+				if(updateFailedAction !== undefined)
+					setTimeout(() => updateFailedAction(), updateFailedAction)
+
 				console.log('error caught in transact', e);
 			}
 		}

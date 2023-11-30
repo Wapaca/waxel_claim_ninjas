@@ -9,11 +9,11 @@
 							<div v-for="ninja in waxelStore.ninjasList[actor]" class="ninjas-list-item">
 								<div class="item-label">{{ ninja.race }} (<a :href="'https://wax.atomichub.io/explorer/asset/wax-mainnet/Waxel-Ninja-0000_'+ninja.asset_id" target="_blank">{{ ninja.asset_id }}</a>)</div>
 								<div class="item-content">
-									<div v-if="waxelStore.getNinjaStep(ninja)">
+									<div v-if="waxelStore.getNinjaStep(ninja) === 'searching'">
 										<div v-if="waxelStore.getNinjaClaimTimeleft(ninja) > 0">{{ formatDurationSeconds(precise(waxelStore.getNinjaClaimTimeleft(ninja) - timer, 0) ) }}</div>
-										<button v-else>CLAIM</button>
+										<button v-else @click="chainWaxelStore.claimTransact([ninja.asset_id])">CLAIM</button>
 									</div>
-									<button v-else>SEARCH</button>
+									<button v-else @click="chainWaxelStore.searchTransact([ninja.asset_id])">SEARCH</button>
 								</div>
 							</div>
 						</div>
@@ -21,8 +21,8 @@
 							<span>Go on <a href="https://play.waxel.net/ww/index.html" target="_blank">Waxel game</a> to stake your ninjas</span>
 						</div>
 						<div v-if="waxelStore.ninjasList[actor] !== undefined" class="item-actions">
-							<button>SEARCH ALL</button>
-							<button>CLAIM ALL</button>
+							<button @click="chainWaxelStore.searchTransact(waxelStore.getSearchableAssetIds(actor))">SEARCH ALL</button>
+							<button @click="chainWaxelStore.claimTransact(waxelStore.getClaimableAssetIds(actor))">CLAIM ALL</button>
 						</div>
 					</div>
 				</div>
@@ -37,8 +37,11 @@
 <script setup>
 import { ref } from 'vue'
 import { useWaxelStore } from '@/stores/waxel'
+import { useChainWaxelStore } from '@/stores/chain/waxel'
 import { precise, formatDurationSeconds } from '~/composables/utils.js';
+
 const waxelStore = useWaxelStore()
+const chainWaxelStore = useChainWaxelStore()
 
 const timer = ref(0)
 
