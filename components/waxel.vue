@@ -11,9 +11,11 @@
 								<div class="item-content">
 									<div v-if="waxelStore.getNinjaStep(ninja) === 'searching'">
 										<div v-if="waxelStore.getNinjaClaimTimeleft(ninja) > 0">{{ formatDurationSeconds(precise(waxelStore.getNinjaClaimTimeleft(ninja) - timer, 0) ) }}</div>
-										<button v-else @click="chainWaxelStore.claimTransact([ninja.asset_id])">CLAIM</button>
+										<button v-else-if="chainStore.isLoggedActor(actor)" @click="chainWaxelStore.claimTransact([ninja.asset_id])">CLAIM</button>
+										<button class="disabled" v-else>CLAIM</button>
 									</div>
-									<button v-else @click="chainWaxelStore.searchTransact([ninja.asset_id])">SEARCH</button>
+									<button v-else-if="chainStore.isLoggedActor(actor)" @click="chainWaxelStore.searchTransact([ninja.asset_id])">SEARCH</button>
+									<button class="disabled" v-else>SEARCH</button>
 								</div>
 							</div>
 						</div>
@@ -21,8 +23,10 @@
 							<span>Go on <a href="https://play.waxel.net/ww/index.html" target="_blank">Waxel game</a> to stake your ninjas</span>
 						</div>
 						<div v-if="waxelStore.ninjasList[actor] !== undefined" class="item-actions">
-							<button @click="chainWaxelStore.searchTransact(waxelStore.getSearchableAssetIds(actor))">SEARCH ALL</button>
-							<button @click="chainWaxelStore.claimTransact(waxelStore.getClaimableAssetIds(actor))">CLAIM ALL</button>
+							<button v-if="chainStore.isLoggedActor(actor) && waxelStore.getSearchableAssetIds(actor).length" @click="chainWaxelStore.searchTransact(waxelStore.getSearchableAssetIds(actor))">SEARCH ALL ({{waxelStore.getSearchableAssetIds(actor).length}})</button>
+							<button v-else class="disabled">SEARCH ALL ({{waxelStore.getSearchableAssetIds(actor).length}})</button>
+							<button v-if="chainStore.isLoggedActor(actor) && waxelStore.getClaimableAssetIds(actor).length" @click="chainWaxelStore.claimTransact(waxelStore.getClaimableAssetIds(actor))">CLAIM ALL ({{waxelStore.getClaimableAssetIds(actor).length}})</button>
+							<button v-else class="disabled">CLAIM ALL ({{waxelStore.getClaimableAssetIds(actor).length}})</button>
 						</div>
 					</div>
 				</div>
@@ -36,10 +40,12 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import { useChainStore } from '@/stores/chain'
 import { useWaxelStore } from '@/stores/waxel'
 import { useChainWaxelStore } from '@/stores/chain/waxel'
 import { precise, formatDurationSeconds } from '~/composables/utils.js';
 
+const chainStore = useChainStore()
 const waxelStore = useWaxelStore()
 const chainWaxelStore = useChainWaxelStore()
 

@@ -80,6 +80,13 @@ export const useChainStore = defineStore('chain', {
 		}
   },
   getters: {
+  	isLoggedActor: (state) => (actor) => {
+  		const thisStore = useChainStore()
 
+  		if(!thisStore.session)
+  			return false
+
+  		return actor === thisStore.session.actor.toString();
+  	}
   }
 })
