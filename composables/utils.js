@@ -51,10 +51,10 @@ export const formatDurationSeconds = (seconds) => {
   if (days > 0) {
     formatted += `${days} day${days > 1 ? 's' : ''} `;
   }
-  if (hours > 0) {
+  if (days > 0 || hours > 0) {
     formatted += `${formatDoubleDigit(hours)}:`;
   }
-  if (minutes > 0) {
+  if (days > 0 || hours > 0 || minutes > 0) {
     formatted += `${formatDoubleDigit(minutes)}:`;
   }
   formatted += `${formatDoubleDigit(seconds)}`;
