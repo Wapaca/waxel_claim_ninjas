@@ -5,45 +5,12 @@ import { parseDateFromSmartcontract } from '~/composables/utils.js';
 
 export const useWaxelStore = defineStore('waxel', {
   state: () => ({
-    actors: [],
     ninjas: [],
     ninjasList: {} // ninjasList sorted by actors
   }),
   actions: {
     async init() {
-      this.initActors()
       await this.initNinjas()
-    },
-    initActors() {
-      this.actors = []
-      if(process.client) {
-        const jsonActors = localStorage.getItem("waxelStore-actors");
-        if(jsonActors)
-          this.actors = JSON.parse(jsonActors)
-      }
-    },
-    addConnectedActor() {
-      const chainStore = useChainStore()
-
-      if(chainStore.session) {
-        const connected = chainStore.session.actor.toString()
-
-        if(!this.actors.includes(connected))
-          this.actors.push(connected)
-      }
-
-      this.saveActors()
-    },
-    removeActor(actor) {
-      const index = this.actors.indexOf(actor)
-
-      this.actors.splice(index, 1)
-
-      this.saveActors()
-    },
-    saveActors() {
-      if(process.client)
-        localStorage.setItem("waxelStore-actors", JSON.stringify(this.actors))
     },
     async initNinjas() {
       const ninjasFetch = await fetchTable('waxelworldsc', 'waxelworldsc', 'ninjas', true);

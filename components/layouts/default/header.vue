@@ -3,13 +3,13 @@
 		<div class="header-logo">WAXEL CLAIM TOOL</div>
 		<div class="header-account">
 			<div class="account-name">
-				<div v-if="chainStore.session">
-					<span>{{ chainStore.session.actor }}</span>
+				<div v-if="chainStore.currentActor">
+					<span>{{ chainStore.currentActor }}</span>
 				</div>
-				<button v-else @click="chainStore.login">Login</button>
+				<button @click="chainStore.login">Login</button>
 			</div>
 			<div class="account-logout">
-				<button v-if="chainStore.session" @click="chainStore.logout">Logout</button>
+				<button v-if="chainStore.currentActor" @click="chainStore.logout">Logout</button>
 			</div>
 		</div>
 	</div>

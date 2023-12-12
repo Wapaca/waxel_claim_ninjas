@@ -7,52 +7,54 @@ export const useChainWaxelStore = defineStore('chainWaxel', {
 
   }),
   actions: {
-		async searchTransact(asset_ids) {
+		async searchTransact(actor, asset_ids) {
 			const chainStore = useChainStore();
 			const waxelStore = useWaxelStore();
 			chainStore.transact({
-				actions: this.getSearchActions(asset_ids),
+				actor,
+				actions: this.getSearchActions(actor, asset_ids),
 				updateAction: () => waxelStore.initNinjas(),
 				updateDelay: 4000,
 			})
 		},
-		async claimTransact(asset_ids) {
+		async claimTransact(actor, asset_ids) {
 			const chainStore = useChainStore();
 			const waxelStore = useWaxelStore();
 			chainStore.transact({
-				actions: this.getClaimActions(asset_ids),
+				actor,
+				actions: this.getClaimActions(actor, asset_ids),
 				updateAction: () => waxelStore.initNinjas(),
 				updateDelay: 4000,
 			})
 		}
   },
   getters: {
-  	getSearchActions: () => (asset_ids) => {
+  	getSearchActions: () => (actor, asset_ids) => {
   		const chainStore = useChainStore();
 
   		const actions = []
 			actions.push({
 				account: 'waxelworldsc',
 				name: 'startsearch',
-				authorization: [chainStore.session.permissionLevel],
+				authorization: [chainStore.sessions[actor].permissionLevel],
 				data: {
-					account: chainStore.session.actor,
+					account: actor,
 					asset_ids
 				}
 			});
 
 			return actions
   	},
-  	getClaimActions: () => (asset_ids) => {
+  	getClaimActions: () => (actor, asset_ids) => {
   		const chainStore = useChainStore();
 
   		const actions = []
 			actions.push({
 				account: 'waxelworldsc',
 				name: 'searchforcz',
-				authorization: [chainStore.session.permissionLevel],
+				authorization: [chainStore.sessions[actor].permissionLevel],
 				data: {
-					account: chainStore.session.actor,
+					account: actor,
 					asset_ids
 				}
 			});
