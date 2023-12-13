@@ -6,11 +6,24 @@ import { parseDateFromSmartcontract } from '~/composables/utils.js';
 export const useWaxelNinjasStore = defineStore('waxel', {
   state: () => ({
     ninjas: [],
-    ninjasList: {} // ninjasList sorted by actors
+    ninjasList: {}, // ninjasList sorted by actors
+    users: [], // data from user table
+    usersList: {} // users sorted by actors
   }),
   actions: {
     async init() {
+      this.initUsers()
       await this.initNinjas()
+    },
+    async initUsers() {
+      const usersFetch = await fetchTable('waxelworldsc', 'waxelworldsc', 'user', true);
+      this.users = usersFetch
+      this.updateUsersList()
+    },
+    updateUsersList() {
+      this.usersList = {}
+      for(const row of this.users)
+        this.usersList[row.account] = row;
     },
     async initNinjas() {
       const ninjasFetch = await fetchTable('waxelworldsc', 'waxelworldsc', 'ninjas', true);

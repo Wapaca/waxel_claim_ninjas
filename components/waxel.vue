@@ -23,10 +23,21 @@
 							<span>Go on <a href="https://play.waxel.net/ww/index.html" target="_blank">Waxel game</a> to stake your ninjas</span>
 						</div>
 						<div v-if="waxelNinjasStore.ninjasList[actor] !== undefined" class="item-actions">
-							<button v-if="chainStore.isLoggedActor(actor) && waxelNinjasStore.getSearchableAssetIds(actor).length" @click="chainWaxelStore.searchTransact(actor, waxelNinjasStore.getSearchableAssetIds(actor))">SEARCH ALL ({{waxelNinjasStore.getSearchableAssetIds(actor).length}})</button>
+							<button v-if="waxelNinjasStore.getSearchableAssetIds(actor).length" @click="chainWaxelStore.searchTransact(actor, waxelNinjasStore.getSearchableAssetIds(actor))">SEARCH ALL ({{waxelNinjasStore.getSearchableAssetIds(actor).length}})</button>
 							<button v-else class="disabled">SEARCH ALL ({{waxelNinjasStore.getSearchableAssetIds(actor).length}})</button>
-							<button v-if="chainStore.isLoggedActor(actor) && waxelNinjasStore.getClaimableAssetIds(actor).length" @click="chainWaxelStore.claimTransact(actor, waxelNinjasStore.getClaimableAssetIds(actor))">CLAIM ALL ({{waxelNinjasStore.getClaimableAssetIds(actor).length}})</button>
+							<button v-if="waxelNinjasStore.getClaimableAssetIds(actor).length" @click="chainWaxelStore.claimTransact(actor, waxelNinjasStore.getClaimableAssetIds(actor))">CLAIM ALL ({{waxelNinjasStore.getClaimableAssetIds(actor).length}})</button>
 							<button v-else class="disabled">CLAIM ALL ({{waxelNinjasStore.getClaimableAssetIds(actor).length}})</button>
+						</div>
+						<div v-if="waxelNinjasStore.usersList[actor] !== undefined" class="item-citizens">
+							{{ waxelNinjasStore.usersList[actor].citizen_count }} citizens
+							<div class="item-citizens-actions">
+								<button v-if="Number(waxelNinjasStore.usersList[actor].citizen_count) >= 10" @click="chainWaxelStore.mintCitizensPack(actor, 1)">Mint 1 pack</button>
+								<button v-else class="disabled">Mint 1 pack</button>
+								<button v-if="Number(waxelNinjasStore.usersList[actor].citizen_count) >= 100" @click="chainWaxelStore.mintCitizensPack(actor, 10)">Mint 10 packs</button>
+								<button v-else class="disabled">Mint 10 packs</button>
+								<button v-if="Number(waxelNinjasStore.usersList[actor].citizen_count) >= 10" @click="chainWaxelStore.mintCitizensPack(actor, Math.floor(Number(waxelNinjasStore.usersList[actor].citizen_count)/10))">Mint {{Math.floor(Number(waxelNinjasStore.usersList[actor].citizen_count)/10)}} packs</button>
+								<button v-else class="disabled">Mint {{Math.floor(Number(waxelNinjasStore.usersList[actor].citizen_count)/10)}} packs</button>
+							</div>
 						</div>
 					</div>
 				</div>

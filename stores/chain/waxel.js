@@ -33,6 +33,16 @@ export const useChainWaxelStore = defineStore('chainWaxel', {
 				updateAction: () => waxelStore.initNinjas(),
 				updateDelay: 4000,
 			})
+		},
+		async mintCitizensPack(actor, amount) {
+			const chainStore = useChainStore();
+			const waxelStore = useWaxelNinjasStore();
+			chainStore.transact({
+				actor,
+				actions: this.getMintCitizensPackActions(actor, amount),
+				updateAction: () => waxelStore.initUsers(),
+				updateDelay: 4000,
+			})
 		}
   },
   getters: {
@@ -83,5 +93,18 @@ export const useChainWaxelStore = defineStore('chainWaxel', {
 
 			return actions
   	},
+  	getMintCitizensPackActions: () => (actor, amount) => {
+  		const chainStore = useChainStore();
+
+  		return [{
+				account: 'waxelworldsc',
+				name: 'mintcitizens',
+				authorization: [chainStore.sessions[actor].permissionLevel],
+				data: {
+					account: actor,
+					amount
+				}
+			}];
+  	}
   }
 })
