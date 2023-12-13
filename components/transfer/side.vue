@@ -1,5 +1,5 @@
 <template>
-	<div :class="'transfer-side transfer-'+side">
+	<div :class="'waxelbox transfer-side transfer-'+side">
 		<h3>{{ side.slice(0, 1).toUpperCase() + side.substr(1)}}</h3>
 		<div class="transfer-actor">
 			<span>Wallet to use:</span>

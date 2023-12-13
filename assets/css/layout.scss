@@ -65,4 +65,9 @@ body {
 		padding: calc($margin-small + 60px) $margin-small $margin-small;
 	}
 
+	.waxelbox {
+		background: $background_color_darker;
+		padding: $margin-small;
+	}
+
 }

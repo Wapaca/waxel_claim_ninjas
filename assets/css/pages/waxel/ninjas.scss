@@ -1,0 +1,59 @@
+.waxelpage .waxel {
+	.waxel-actors .waxel-actors-list {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		grid-gap: $margin-small;
+
+		.waxel-actors-list-item {
+			padding: 0 $margin-small;
+
+			.item-label {
+				font-size: 1.05em;
+				text-align: center;
+				padding: $margin-small 0;
+
+				span {
+					cursor: pointer;
+					color: yellow;
+				}
+			}
+
+			.item-ninjas-list {
+				.ninjas-list-item {
+					display: grid;
+					grid-template-columns: auto 1fr;
+					grid-gap: $margin-xsmall;
+
+					margin-bottom: $margin-xsmall;
+
+					.item-label,
+					.item-content {
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+					}
+
+					.item-label {
+						justify-content: flex-start;
+					}
+					.item-content {
+						justify-content: flex-end;
+					}
+				}
+				.ninjas-list-item:last-child {
+					margin-bottom: 0;
+				}
+			}
+
+			.item-actions {
+				padding: $margin-small;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+				align-items: center;
+			}
+
+		}
+	}
+
+}

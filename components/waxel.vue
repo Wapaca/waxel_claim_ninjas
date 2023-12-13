@@ -3,7 +3,7 @@
 		<ClientOnly>
 			<div class="waxel-actors">
 				<div v-if="Object.keys(chainStore.sessions).length" class="waxel-actors-list">
-					<div v-for="actor in Object.keys(chainStore.sessions)" class="waxel-actors-list-item">
+					<div v-for="actor in Object.keys(chainStore.sessions)" class="waxel-actors-list-item waxelbox">
 						<div class="item-label">{{ actor }} ({{ waxelNinjasStore.getNinjasAmount(actor) }} ninja{{ ((waxelNinjasStore.getNinjasAmount(actor) > 1) ? 's' : '') }}) <span @click="chainStore.logout(actor)">Remove</span></div>
 						<div v-if="waxelNinjasStore.ninjasList[actor] !== undefined" class="item-ninjas-list">
 							<div v-for="ninja in waxelNinjasStore.ninjasList[actor]" class="ninjas-list-item">
