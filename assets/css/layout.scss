@@ -1,4 +1,11 @@
 body {
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+}
+body {
 	background: $background_color;
 	color: $txt_color;
 	margin: 0;
@@ -20,10 +27,29 @@ body {
 		align-content: center;
 
 		.header-logo,
-		.header-account > div {
+		.header-account > div,
+		.header-nav ul {
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			height: 100%;
+		}
+
+		.header-nav ul {
+			li {
+				padding-right: $margin-small;
+				a, a:hover, a:visited {
+					color: $txt_color;
+					font-size: 1.05em;
+					text-decoration: none;
+				}
+				a:hover {
+					text-decoration: underline;
+				}
+			}
+			li:last-child {
+				padding-right: 0;
+			}
 		}
 
 		.header-account {
