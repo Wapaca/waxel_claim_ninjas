@@ -1,7 +1,20 @@
 .transferpage .transfer {
+	> div {
+		margin-bottom: $margin-medium;
+	}
+	> div:last-child {
+		margin-bottom: 0;
+	}
 	.transfer-box {
 		display: grid;
 		grid-gap: $margin-small;
 		grid-template-columns: repeat(2, 1fr);
+
+		.transfer-side {
+			.nftlist {
+				max-height: 300px;
+				overflow-y: scroll;
+			}
+		}
 	}
 }

@@ -81,7 +81,6 @@ export const useChainStore = defineStore('chain', {
 		}) {
 			let session = null
 			if(actor !== undefined) {
-				console.log(this.sessions[actor])
 				if(this.sessions[actor] !== undefined)
 					session =	this.sessions[actor]
 				else {

@@ -7,6 +7,13 @@ export const useChainWaxelStore = defineStore('chainWaxel', {
 
   }),
   actions: {
+  	async transferAssets(fromActor, toActor, asset_ids) {
+			const chainStore = useChainStore();
+			chainStore.transact({
+				actor: fromActor,
+				actions: this.getTransferAssetsActions(fromActor, toActor, asset_ids)
+			})
+  	},
 		async searchTransact(actor, asset_ids) {
 			const chainStore = useChainStore();
 			const waxelStore = useWaxelNinjasStore();
@@ -29,6 +36,21 @@ export const useChainWaxelStore = defineStore('chainWaxel', {
 		}
   },
   getters: {
+  	getTransferAssetsActions: () => (fromActor, toActor, asset_ids) => {
+  		const chainStore = useChainStore();
+
+  		return [{
+  			account: 'atomicassets',
+				name: 'transfer',
+				authorization: [chainStore.sessions[fromActor].permissionLevel],
+				data: {
+					from: fromActor,
+					to: toActor,
+					asset_ids,
+					memo: '',
+				},
+  		}]
+  	},
   	getSearchActions: () => (actor, asset_ids) => {
   		const chainStore = useChainStore();
 

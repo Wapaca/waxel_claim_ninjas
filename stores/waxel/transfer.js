@@ -6,10 +6,10 @@ export const useWaxelTransferStore = defineStore('transfer', {
   state: () => ({
   	assets: {},
   	selectedActor: {},
-  	whitelistedTemplates: [
-  		540991, // Citizens - 10x
-  		606491, // Old Book Page - 1x
-		],
+  	whitelistedTemplates: {
+  		540991: 'Citizens - 10x',
+  		606491: 'Old Book Page - 1x',
+		},
   }),
   actions: {
   	setSelectedActor(side, actor) {
@@ -17,7 +17,7 @@ export const useWaxelTransferStore = defineStore('transfer', {
   	},
   	async loadAssets(actor) {
 			const assets = await loadAllUserAssets('waxelninjas1', actor);
-			this.assets[actor] = assets.filter(a => this.whitelistedTemplates.includes(Number(a.template.template_id)));
+			this.assets[actor] = assets.filter(a => Object.keys(this.whitelistedTemplates).includes(a.template.template_id));
   	}
   },
   getters: {
