@@ -7,17 +7,19 @@
 				<li><NuxtLink to="/transfer">Transfer NFT</NuxtLink></li>
 			</ul>
 		</div>
-		<div class="header-account">
-			<div class="account-name">
-				<div v-if="chainStore.currentActor">
-					<span>{{ chainStore.currentActor }}</span>
+		<ClientOnly>
+			<div class="header-account">
+				<div class="account-name">
+					<div v-if="chainStore.currentActor">
+						<span>{{ chainStore.currentActor }}</span>
+					</div>
+					<button @click="chainStore.login">Login</button>
 				</div>
-				<button @click="chainStore.login">Login</button>
+				<div class="account-logout">
+					<button v-if="chainStore.currentActor" @click="chainStore.logout">Logout</button>
+				</div>
 			</div>
-			<div class="account-logout">
-				<button v-if="chainStore.currentActor" @click="chainStore.logout">Logout</button>
-			</div>
-		</div>
+		</ClientOnly>
 	</div>
 </template>
 <script setup>
