@@ -3,7 +3,7 @@ import { useChainStore } from '~/stores/chain.js';
 import { fetchTable } from '~/composables/useRpc.js';
 import { parseDateFromSmartcontract } from '~/composables/utils.js';
 
-export const useWaxelStore = defineStore('waxel', {
+export const useWaxelNinjasStore = defineStore('waxel', {
   state: () => ({
     ninjas: [],
     ninjasList: {} // ninjasList sorted by actors
@@ -51,7 +51,7 @@ export const useWaxelStore = defineStore('waxel', {
       return 'searching'
     },
     getNinjaClaimTimeleft: () => (ninja) => {
-      const thisStore = useWaxelStore()
+      const thisStore = useWaxelNinjasStore()
       if(thisStore.getNinjaStep(ninja) !== 'searching')
         return 0;
 
@@ -61,7 +61,7 @@ export const useWaxelStore = defineStore('waxel', {
       if(state.ninjasList[actor] === undefined)
         return []
 
-      const thisStore = useWaxelStore()
+      const thisStore = useWaxelNinjasStore()
 
       const asset_ids = []
 
@@ -75,7 +75,7 @@ export const useWaxelStore = defineStore('waxel', {
       if(state.ninjasList[actor] === undefined)
         return []
 
-      const thisStore = useWaxelStore()
+      const thisStore = useWaxelNinjasStore()
 
       const asset_ids = []
 

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useChainStore } from '~/stores/chain.js'
-import { useWaxelStore } from '~/stores/waxel.js'
+import { useWaxelNinjasStore } from '~/stores/waxel/ninjas.js'
 
 export const useChainWaxelStore = defineStore('chainWaxel', {
   state: () => ({
@@ -9,7 +9,7 @@ export const useChainWaxelStore = defineStore('chainWaxel', {
   actions: {
 		async searchTransact(actor, asset_ids) {
 			const chainStore = useChainStore();
-			const waxelStore = useWaxelStore();
+			const waxelStore = useWaxelNinjasStore();
 			chainStore.transact({
 				actor,
 				actions: this.getSearchActions(actor, asset_ids),
@@ -19,7 +19,7 @@ export const useChainWaxelStore = defineStore('chainWaxel', {
 		},
 		async claimTransact(actor, asset_ids) {
 			const chainStore = useChainStore();
-			const waxelStore = useWaxelStore();
+			const waxelStore = useWaxelNinjasStore();
 			chainStore.transact({
 				actor,
 				actions: this.getClaimActions(actor, asset_ids),
