@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 
 import { BrowserLocalStorage, SessionKit } from '@wharfkit/session';
-import { WalletPluginAnchor } from '@wharfkit/wallet-plugin-anchor';
-import { WalletPluginCloudWallet } from '@wharfkit/wallet-plugin-cloudwallet';
-import { WalletPluginWombat } from '@wharfkit/wallet-plugin-wombat'
+//import { WalletPluginAnchor } from '@wharfkit/wallet-plugin-anchor';
+//import { WalletPluginCloudWallet } from '@wharfkit/wallet-plugin-cloudwallet';
+//import { WalletPluginWombat } from '@wharfkit/wallet-plugin-wombat'
 import WebRenderer from '@wharfkit/web-renderer';
 
 export const useChainStore = defineStore('chain', {
@@ -16,6 +16,10 @@ export const useChainStore = defineStore('chain', {
   	async init() {
   		const ui = (process.client) ? new WebRenderer() : null;
 			const authStorageKey = 'waxel_ninjas_claim-auth';
+
+			const { WalletPluginCloudWallet } = await import('@wharfkit/wallet-plugin-cloudwallet')
+  	  const { WalletPluginAnchor } = await import('@wharfkit/wallet-plugin-anchor')
+	    const { WalletPluginWombat } = await import('@wharfkit/wallet-plugin-wombat')
 
 			this.sessionKit = new SessionKit({
 				appName: 'waxel_ninjas_claim',
