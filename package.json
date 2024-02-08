@@ -22,6 +22,7 @@
     "@wharfkit/session": "^1.1.1",
     "@wharfkit/wallet-plugin-anchor": "^1.1.0",
     "@wharfkit/wallet-plugin-cloudwallet": "^1.1.0",
+    "@wharfkit/wallet-plugin-wombat": "^1.1.0",
     "@wharfkit/web-renderer": "^1.1.1",
     "pinia": "^2.1.7"
   }

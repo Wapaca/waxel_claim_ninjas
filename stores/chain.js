@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { BrowserLocalStorage, SessionKit } from '@wharfkit/session';
 import { WalletPluginAnchor } from '@wharfkit/wallet-plugin-anchor';
 import { WalletPluginCloudWallet } from '@wharfkit/wallet-plugin-cloudwallet';
+import { WalletPluginWombat } from '@wharfkit/wallet-plugin-wombat'
 import WebRenderer from '@wharfkit/web-renderer';
 
 export const useChainStore = defineStore('chain', {
@@ -24,7 +25,11 @@ export const useChainStore = defineStore('chain', {
 				}],
 				storage: new BrowserLocalStorage(authStorageKey),
 				ui,
-				walletPlugins: [new WalletPluginAnchor(), new WalletPluginCloudWallet()]
+				walletPlugins: [
+					new WalletPluginAnchor(),
+					new WalletPluginCloudWallet(),
+					new WalletPluginWombat()
+				]
 			});
 
       const sessions = await this.sessionKit.restoreAll();
