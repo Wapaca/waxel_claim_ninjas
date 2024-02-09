@@ -5,9 +5,9 @@ export default defineNuxtPlugin({
   enforce: 'pre', // or 'post'
   hooks: {
     // You can directly register Nuxt app runtime hooks here
-    'app:created'() {
+    async 'app:created'() {
       const chainStore = useChainStore();
-      chainStore.init()
+      await chainStore.init()
     }
   },
 })
