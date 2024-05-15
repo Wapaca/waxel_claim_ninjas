@@ -13,10 +13,10 @@
 					<div v-if="chainStore.currentActor">
 						<span>{{ chainStore.currentActor }}</span>
 					</div>
-					<button @click="chainStore.login">Login</button>
+					<button @click="chainStore.login()">Login</button>
 				</div>
 				<div class="account-logout">
-					<button v-if="chainStore.currentActor" @click="chainStore.logout">Logout</button>
+					<button v-if="chainStore.currentActor" @click="chainStore.logout()">Logout</button>
 				</div>
 			</div>
 		</ClientOnly>
