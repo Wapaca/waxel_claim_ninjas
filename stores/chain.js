@@ -115,7 +115,7 @@ export const useChainStore = defineStore('chain', {
 			if(!Object.keys(thisStore.sessions).length)
   			return null;
 
-  		if(thisStore.sessions[thisStore.currentActor] !== undefined)
+  		if(thisStore.sessions[thisStore.currentActor] === undefined)
   			return null;
 
   		return thisStore.sessions[thisStore.currentActor];
